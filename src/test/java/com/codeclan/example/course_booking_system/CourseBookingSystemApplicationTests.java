@@ -1,6 +1,8 @@
 package com.codeclan.example.course_booking_system;
 
 import com.codeclan.example.course_booking_system.models.Booking;
+import com.codeclan.example.course_booking_system.models.Course;
+import com.codeclan.example.course_booking_system.models.Customer;
 import com.codeclan.example.course_booking_system.repositories.BookingRepository;
 import com.codeclan.example.course_booking_system.repositories.CourseRepository;
 import com.codeclan.example.course_booking_system.repositories.CustomerRepository;
@@ -37,19 +39,40 @@ public class CourseBookingSystemApplicationTests {
 		assertEquals(2, found.size());
 	}
 //
-//	@Test
-//	public void canFindCoursesByRating() {
+	@Test
+	public void canFindCoursesByRating() {
+		List<Course> found = courseRepository.findByRating(5);
+		assertEquals(1, found.size());
+	}
 //
-//	}
+	@Test
+	public void canFindCourseByCustomer() {
+		Customer customer = customerRepository.getOne(1L);
+		List<Course> found = courseRepository.findByBookingsCustomer(customer);
+		assertEquals(3, found.size());
+	}
 //
-//	@Test
-//	public void canFindCourseByCustomer() {
-//
-//	}
-//
-//	@Test
-//	public void canFindCustomersByCourseName() {
-//
-//	}
+	@Test
+	public void canFindCustomersByCourseName() {
+		List<Customer> found = customerRepository.findByBookingsCourseName("JavaScript");
+		assertEquals(2, found.size());
+	}
+
+	@Test
+	public void canFindCustomersByTownAndCourse() {
+		Course course = courseRepository.getOne(1L);
+		List<Customer> found = customerRepository.findByTownAndBookingsCourse("York", course);
+		assertEquals("Jack", found.get(0).getName());
+		assertEquals(2, found.size());
+	}
+
+	@Test
+	public void canFindCustomersLessThanAgeInTownAndOnCourse() {
+		Course course = courseRepository.getOne(1L);
+		List<Customer> found = customerRepository.findByAgeLessThanAndTownAndBookingsCourse(40, "Edinburgh", course);
+		assertEquals(2, found.size());
+		assertEquals("Craig", found.get(0).getName());
+		assertEquals("Craig", found.get(1).getName());
+	}
 
 }

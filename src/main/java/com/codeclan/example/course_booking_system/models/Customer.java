@@ -29,16 +29,6 @@ public class Customer {
     @JsonIgnoreProperties({"customer"})
     private List<Booking> bookings;
 
-//    @ManyToMany
-//    @JsonIgnoreProperties({"customer"})
-//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-//    @JoinTable(
-//            name = "bookings",
-//            joinColumns = { @JoinColumn(name = "customer_id", nullable = false, updatable = false)},
-//            inverseJoinColumns = { @JoinColumn(name = "course_id", nullable = false, updatable = false)}
-//    )
-//    private List<Booking> bookings;
-
     public Customer(String name, String town, int age) {
         this.name = name;
         this.town = town;

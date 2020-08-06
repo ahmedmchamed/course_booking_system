@@ -29,16 +29,6 @@ public class Course {
     @JsonIgnoreProperties({"course"})
     private List<Booking> bookings;
 
-//    @ManyToMany
-//    @JsonIgnoreProperties({"course"})
-//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-//    @JoinTable(
-//            name = "bookings",
-//            joinColumns = { @JoinColumn(name = "course_id", nullable = false, updatable = false)},
-//            inverseJoinColumns = { @JoinColumn(name = "customer_id", nullable = false, updatable = false)}
-//    )
-//    private List<Booking> bookings;
-
     public Course(String name, String town, int rating) {
         this.name = name;
         this.town = town;
