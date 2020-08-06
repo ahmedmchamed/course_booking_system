@@ -1,7 +1,7 @@
 package com.codeclan.example.course_booking_system.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.stereotype.Component;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,6 +28,16 @@ public class Customer {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"customer"})
     private List<Booking> bookings;
+
+//    @ManyToMany
+//    @JsonIgnoreProperties({"customer"})
+//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+//    @JoinTable(
+//            name = "bookings",
+//            joinColumns = { @JoinColumn(name = "customer_id", nullable = false, updatable = false)},
+//            inverseJoinColumns = { @JoinColumn(name = "course_id", nullable = false, updatable = false)}
+//    )
+//    private List<Booking> bookings;
 
     public Customer(String name, String town, int age) {
         this.name = name;
@@ -76,5 +86,9 @@ public class Customer {
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public void addBooking(Booking booking) {
+        this.bookings.add(booking);
     }
 }

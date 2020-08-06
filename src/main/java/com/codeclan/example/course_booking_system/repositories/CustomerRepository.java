@@ -4,8 +4,10 @@ import com.codeclan.example.course_booking_system.models.Customer;
 import com.codeclan.example.course_booking_system.models.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
+import java.util.List;
 
-    List<Customer> findByCourseName(String name);
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+
+    List<Customer> findByBookingsCourseName(String name);
 
 }

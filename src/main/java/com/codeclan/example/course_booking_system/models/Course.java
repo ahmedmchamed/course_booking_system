@@ -1,6 +1,7 @@
 package com.codeclan.example.course_booking_system.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public class Course {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "town")
+    private String town;
+
     @Column(name = "rating")
     private int rating;
 
@@ -25,8 +29,19 @@ public class Course {
     @JsonIgnoreProperties({"course"})
     private List<Booking> bookings;
 
-    public Course(String name, int rating) {
+//    @ManyToMany
+//    @JsonIgnoreProperties({"course"})
+//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+//    @JoinTable(
+//            name = "bookings",
+//            joinColumns = { @JoinColumn(name = "course_id", nullable = false, updatable = false)},
+//            inverseJoinColumns = { @JoinColumn(name = "customer_id", nullable = false, updatable = false)}
+//    )
+//    private List<Booking> bookings;
+
+    public Course(String name, String town, int rating) {
         this.name = name;
+        this.town = town;
         this.rating = rating;
         this.bookings = new ArrayList<>();
     }
@@ -63,5 +78,9 @@ public class Course {
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public void addBooking(Booking booking) {
+        this.bookings.add(booking);
     }
 }
